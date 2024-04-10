@@ -149,7 +149,7 @@ const Todos = () => {
             id="todoTitle"
             value={todoObj.todoTitle}
             onChange={handleChange}
-            className={`w-full h-24 rounded border-2 outline-none ${
+            className={`w-full h-32 resize-none p-2 rounded border-2 outline-none ${
               error ? "border-red-700" : "border-gray-200"
             }`}
           ></textarea>
@@ -160,7 +160,7 @@ const Todos = () => {
             value={todoObj.time}
             min={currentDateAndTime}
             onChange={handleChange}
-            className="w-full rounded border-2 2xl:mt-2"
+            className="w-full rounded p-2 border-2 2xl:mt-2"
           />
           <div className="w-full flex justify-between text-lg font-semibold text-blue-500 mt-3 px-4 2xl:mt-4">
             <button onClick={cancelClick}>Cancel</button>
