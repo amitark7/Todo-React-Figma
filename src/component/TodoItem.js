@@ -6,7 +6,7 @@ import moment from "moment";
 
 const TodoItem = ({
   todo,
-  deleteTodo,
+  openDeletedModal,
   updateDataInTodoInput,
   isTodoComplete,
 }) => {
@@ -31,7 +31,7 @@ const TodoItem = ({
         </div>
         <div className="flex items-center justify-center gap-1 w-[20%]">
           <div className="flex items-center text-xl cursor-pointer">
-            <MdDelete onClick={() => deleteTodo(todo.id)} />
+            <MdDelete onClick={() => openDeletedModal(todo.id)} />
             <MdEdit onClick={() => updateDataInTodoInput(todo)} />
           </div>
           <div
