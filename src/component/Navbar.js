@@ -4,7 +4,7 @@ import { BiWifi2 } from "react-icons/bi";
 import { FaBatteryFull } from "react-icons/fa6";
 import moment from "moment";
 
-const TopContainer = () => {
+const Navbar = () => {
   return (
     <div className="w-full flex justify-between items-center p-3 px-4">
       <div className="text-base font-semibold">{moment().format("HH:mm")}</div>
@@ -17,4 +17,4 @@ const TopContainer = () => {
   );
 };
 
-export default TopContainer;
+export default Navbar;
