@@ -4,7 +4,12 @@ import { MdDelete } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
 import moment from "moment";
 
-const TodoItem = ({ todo, deleteTodo, selectTodoId, hanldeIsComplete }) => {
+const TodoItem = ({
+  todo,
+  deleteTodo,
+  updateDataInTodoInput,
+  changeTodoIsCompleteStatus,
+}) => {
   const boxColor = todo.isComplete ? "bg-green-500" : "bg-purple-600";
   return (
     <div className="flex w-full items-center p-4 mb-2  ">
@@ -14,7 +19,7 @@ const TodoItem = ({ todo, deleteTodo, selectTodoId, hanldeIsComplete }) => {
         id="isComplete"
         className="h-6 rounded-full border w-[4%]"
         checked={todo.isComplete}
-        onChange={(e) => hanldeIsComplete(todo.id)}
+        onChange={(e) => changeTodoIsCompleteStatus(todo.id)}
         value={todo.isComplete}
       />
       <div className="flex justify-between items-center w-[96%] pb-4 border-b-2">
@@ -27,15 +32,14 @@ const TodoItem = ({ todo, deleteTodo, selectTodoId, hanldeIsComplete }) => {
         <div className="flex items-center justify-center gap-1 w-[20%]">
           <div className="flex items-center text-xl cursor-pointer">
             <MdDelete onClick={() => deleteTodo(todo.id)} />
-            <MdEdit onClick={() => selectTodoId(todo.id)} />
+            <MdEdit onClick={() => updateDataInTodoInput(todo.id)} />
           </div>
           <div
             className={`${
               moment(todo.time).isBefore(new Date(), "minute")
                 ? "bg-red-500"
                 : boxColor
-            } rounded-3xl`}
-            style={{ width: "15px", height: "15px" }}
+            } rounded-3xl w-4 h-4`}
           ></div>
         </div>
       </div>
