@@ -24,7 +24,7 @@ const TodoItem = ({ todo, deleteTodo, selectTodoId, hanldeIsComplete }) => {
             <BiAlarm /> {moment(todo.time).format("YYYY-MM-DD HH:mm")}
           </p>
         </div>
-        <div className="flex items-center justify-center gap-2 w-[20%]">
+        <div className="flex items-center justify-center gap-1 w-[20%]">
           <div className="flex items-center text-xl cursor-pointer">
             <MdDelete onClick={() => deleteTodo(todo.id)} />
             <MdEdit onClick={() => selectTodoId(todo.id)} />
