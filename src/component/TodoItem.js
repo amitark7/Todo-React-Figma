@@ -8,7 +8,7 @@ const TodoItem = ({
   todo,
   deleteTodo,
   updateDataInTodoInput,
-  changeTodoIsCompleteStatus,
+  isTodoComplete,
 }) => {
   const boxColor = todo.isComplete ? "bg-green-500" : "bg-purple-600";
   return (
@@ -19,7 +19,7 @@ const TodoItem = ({
         id="isComplete"
         className="h-6 rounded-full border w-[4%]"
         checked={todo.isComplete}
-        onChange={(e) => changeTodoIsCompleteStatus(todo.id)}
+        onChange={(e) => isTodoComplete(todo.id)}
         value={todo.isComplete}
       />
       <div className="flex justify-between items-center w-[96%] pb-4 border-b-2">
@@ -32,7 +32,7 @@ const TodoItem = ({
         <div className="flex items-center justify-center gap-1 w-[20%]">
           <div className="flex items-center text-xl cursor-pointer">
             <MdDelete onClick={() => deleteTodo(todo.id)} />
-            <MdEdit onClick={() => updateDataInTodoInput(todo.id)} />
+            <MdEdit onClick={() => updateDataInTodoInput(todo)} />
           </div>
           <div
             className={`${

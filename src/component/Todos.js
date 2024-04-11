@@ -18,7 +18,7 @@ const Todos = () => {
     time: currentTimeAndDate,
   });
   //this function check for todo complete or not.
-  const changeTodoIsCompleteStatus = (id) => {
+  const isTodoComplete = (id) => {
     setTodoList(
       todoList.map((todo) => {
         if (todo.id === id) {
@@ -30,15 +30,15 @@ const Todos = () => {
     );
   };
 
-  const changeTodoInput = (e) => {
+  const changeTodoInputValue = (e) => {
     setTodoInput({ ...todoInput, [e.target.name]: e.target.value });
   };
 
-  const openAddUpdateModal = () => {
+  const openTodoPopupModal = () => {
     setIsModal(true);
   };
 
-  const closeAddUpdateModal = () => {
+  const closeTodoPopupModal = () => {
     setIsModal(false);
     setEditTodoId(null);
     setTodoInput({
@@ -91,11 +91,10 @@ const Todos = () => {
     setTodoList(todoList.filter((todo) => todo.id !== id));
   };
 
-  //this function set TodoInput base on id
-  const updateDataInTodoInput = (id) => {
-    const todo = todoList.find((todo) => todo.id === id);
+  //this function set TodoInputValue base on id
+  const updateDataInTodoInput = (todo) => {
     setTodoInput({ todoTitle: todo.title, time: todo.time });
-    setEditTodoId(id);
+    setEditTodoId(todo.id);
     setIsModal(true);
   };
 
@@ -113,7 +112,7 @@ const Todos = () => {
         <h1 className="text-3xl font-bold">Today</h1>
         <div
           className="text-3xl text-blue-500 cursor-pointer"
-          onClick={openAddUpdateModal}
+          onClick={openTodoPopupModal}
         >
           <AiOutlinePlusCircle />
         </div>
@@ -125,7 +124,7 @@ const Todos = () => {
             todo={todo}
             deleteTodo={deleteTodo}
             updateDataInTodoInput={updateDataInTodoInput}
-            changeTodoIsCompleteStatus={changeTodoIsCompleteStatus}
+            isTodoComplete={isTodoComplete}
           />
         );
       })}
@@ -134,8 +133,8 @@ const Todos = () => {
         isModal={isModal}
         editTodoId={editTodoId}
         todoInput={todoInput}
-        changeTodoInput={changeTodoInput}
-        closeAddUpdateModal={closeAddUpdateModal}
+        changeTodoInputValue={changeTodoInputValue}
+        closeTodoPopupModal={closeTodoPopupModal}
         saveUpdateAndAddTodo={saveUpdateAndAddTodo}
         error={error}
       />
