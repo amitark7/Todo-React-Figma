@@ -3,7 +3,7 @@ import React from "react";
 
 const PopUp = ({
   isModal,
-  editTodoId,
+  selectedTodoId,
   todoInput,
   changeTodoInputValue,
   closeTodoPopupModal,
@@ -16,7 +16,7 @@ const PopUp = ({
     isModal && (
       <div className="absolute mx-auto w-11/12 top-[15%] left-[4%] bg-white border-2 p-2 rounded ">
         <p className="text-lg font-semibold mb-2 2xl:text-xl 2xl:mb-4">
-          {editTodoId ? "Update" : "Add"} Todo
+          {selectedTodoId ? "Update" : "Add"} Todo
         </p>
         <textarea
           name="todoTitle"

@@ -4,7 +4,7 @@ const DeleteModal = ({
   isDeleteModal,
   setIsDeleteModal,
   deleteTodo,
-  editTodoId,
+  selectedTodoId,
 }) => {
   return (
     isDeleteModal && (
@@ -12,7 +12,7 @@ const DeleteModal = ({
         <p className="text-2xl text-left w-[80%] mx-auto mb-8">Are you sure?</p>
         <div className="flex justify-between w-[80%] mx-auto text-lg">
           <button onClick={() => setIsDeleteModal(false)}>Cancel</button>
-          <button onClick={() => deleteTodo(editTodoId)}>Yes</button>
+          <button onClick={() => deleteTodo(selectedTodoId)}>Yes</button>
         </div>
       </div>
     )

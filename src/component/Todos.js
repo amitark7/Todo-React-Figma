@@ -12,7 +12,7 @@ const Todos = () => {
   const [isDeleteModal, setIsDeleteModal] = useState(false);
   const [error, setError] = useState(false);
   const [isInvallid, setIsinValid] = useState(false);
-  const [editTodoId, setEditTodoId] = useState(null);
+  const [selectedTodoId, setSelectedTodoId] = useState(null);
   const [currentTimeAndDate, setCurrentTimeAndDate] = useState(
     moment().format("YYYY-MM-DDTHH:mm")
   );
@@ -43,7 +43,7 @@ const Todos = () => {
 
   const closeTodoPopupModal = () => {
     setIsModal(false);
-    setEditTodoId(null);
+    setSelectedTodoId(null);
     setTodoInput({
       todoTitle: "",
       time: currentTimeAndDate,
@@ -60,11 +60,11 @@ const Todos = () => {
       setIsinValid(true);
       return;
     }
-    //If editTodoId exist then we ente in true block and perform update operation otherwise add todo
-    if (editTodoId) {
+    //If selectedTodoId exist then we ente in true block and perform update operation otherwise add todo
+    if (selectedTodoId) {
       setTodoList(
         todoList.map((todo) => {
-          if (todo.id === editTodoId) {
+          if (todo.id === selectedTodoId) {
             return {
               ...todo,
               title: todoInput.todoTitle,
@@ -75,7 +75,7 @@ const Todos = () => {
           }
         })
       );
-      setEditTodoId(null);
+      setSelectedTodoId(null);
     } else {
       const newTodo = {
         id: Date.now(),
@@ -97,19 +97,18 @@ const Todos = () => {
 
   const deleteTodo = (id) => {
     setTodoList(todoList.filter((todo) => todo.id !== id));
-    setIsDelete(false);
     setIsDeleteModal(false);
   };
 
   const openDeletedModal = (id) => {
     setIsDeleteModal(true);
-    setEditTodoId(id);
+    setSelectedTodoId(id);
   };
 
   //this function set TodoInputValue base on id
   const updateDataInTodoInput = (todo) => {
     setTodoInput({ todoTitle: todo.title, time: todo.time });
-    setEditTodoId(todo.id);
+    setSelectedTodoId(todo.id);
     setIsModal(true);
   };
 
@@ -149,7 +148,7 @@ const Todos = () => {
 
       <PopUp
         isModal={isModal}
-        editTodoId={editTodoId}
+        selectedTodoId={selectedTodoId}
         todoInput={todoInput}
         changeTodoInputValue={changeTodoInputValue}
         closeTodoPopupModal={closeTodoPopupModal}
@@ -160,9 +159,8 @@ const Todos = () => {
       <DeleteModal
         isDeleteModal={isDeleteModal}
         setIsDeleteModal={setIsDeleteModal}
-        setIsDelete={setIsDelete}
         deleteTodo={deleteTodo}
-        editTodoId={editTodoId}
+        selectedTodoId={selectedTodoId}
       />
     </div>
   );
