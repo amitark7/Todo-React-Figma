@@ -56,10 +56,6 @@ const Todos = () => {
       setError(true);
       return;
     }
-    if (!todoInput.time) {
-      setIsinValid(true);
-      return;
-    }
     if (
       !moment(todoInput.time).isValid() ||
       moment(todoInput.time).isBefore(moment())
