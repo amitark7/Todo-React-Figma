@@ -98,6 +98,7 @@ const Todos = () => {
   const deleteTodo = (id) => {
     setTodoList(todoList.filter((todo) => todo.id !== id));
     setIsDeleteModal(false);
+    setSelectedTodoId(false);
   };
 
   const openDeletedModal = (id) => {
