@@ -13,7 +13,7 @@ const Todos = () => {
     deletedModal: false,
   });
   const [error, setError] = useState(false);
-  const [isInvallid, setIsinValid] = useState(false);
+  const [isDateValid, setIsDateValid] = useState(false);
   const [selectedTodoId, setSelectedTodoId] = useState(null);
   const [currentTimeAndDate, setCurrentTimeAndDate] = useState(
     moment().format("YYYY-MM-DDTHH:mm")
@@ -50,18 +50,18 @@ const Todos = () => {
       todoTitle: "",
       time: currentTimeAndDate,
     });
-    setIsinValid(false);
+    setIsDateValid(false);
     setError(false);
   };
 
-  //This function saveUpdateAndAddTodo
-  const saveUpdateAndAddTodo = () => {
+  //This function createAddOrUpdateTodo
+  const createAddOrUpdateTodo = () => {
     if (
       todoInput.todoTitle.trim() === "" &&
       (moment(todoInput.time).isValid() ||
         !moment(todoInput.time).isBefore(moment()))
     ) {
-      setIsinValid(false);
+      setIsDateValid(false);
     }
 
     if (todoInput.todoTitle.trim() === "") {
@@ -75,10 +75,10 @@ const Todos = () => {
       !moment(todoInput.time).isValid() ||
       moment(todoInput.time).isBefore(moment())
     ) {
-      setIsinValid(true);
+      setIsDateValid(true);
       return;
     } else {
-      setIsinValid(false);
+      setIsDateValid(false);
     }
 
     //If selectedTodoId exist then we ente in true block and perform update operation otherwise add todo
@@ -113,7 +113,7 @@ const Todos = () => {
     });
     setShowModal({ addUpdateModal: false, deletedModal: false });
     setError(false);
-    setIsinValid(false);
+    setIsDateValid(false);
   };
 
   const deleteTodo = (id) => {
@@ -174,9 +174,9 @@ const Todos = () => {
         todoInput={todoInput}
         changeTodoInputValue={changeTodoInputValue}
         closeTodoPopupModal={closeTodoPopupModal}
-        saveUpdateAndAddTodo={saveUpdateAndAddTodo}
+        createAddOrUpdateTodo={createAddOrUpdateTodo}
         error={error}
-        isInvallid={isInvallid}
+        isDateValid={isDateValid}
       />
       <DeleteModal
         showModal={showModal}

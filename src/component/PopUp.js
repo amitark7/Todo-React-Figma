@@ -7,9 +7,9 @@ const PopUp = ({
   todoInput,
   changeTodoInputValue,
   closeTodoPopupModal,
-  saveUpdateAndAddTodo,
+  createAddOrUpdateTodo,
   error,
-  isInvallid,
+  isDateValid,
 }) => {
   const dateTimePickerMinValue = moment().format("YYYY-MM-DDTHH:mm");
   return (
@@ -35,12 +35,12 @@ const PopUp = ({
           min={dateTimePickerMinValue}
           onChange={changeTodoInputValue}
           className={`w-full rounded p-2 border-2  ${
-            isInvallid ? "border-red-500" : "border-gray-200"
+            isDateValid ? "border-red-500" : "border-gray-200"
           } 2xl:mt-2`}
         />
         <div className="w-full flex justify-between text-lg font-semibold text-blue-500 mt-3 px-4 2xl:mt-4">
           <button onClick={closeTodoPopupModal}>Cancel</button>
-          <button onClick={saveUpdateAndAddTodo}>Done</button>
+          <button onClick={createAddOrUpdateTodo}>Done</button>
         </div>
       </div>
     )
