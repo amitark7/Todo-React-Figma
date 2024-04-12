@@ -32,6 +32,9 @@ const PopUp = ({
           name="time"
           id="time"
           value={todoInput.time}
+          onKeyDown={(e) => {
+            e.preventDefault();
+          }}
           min={dateTimePickerMinValue}
           onChange={changeTodoInputValue}
           className={`w-full rounded p-2 border-2  ${
