@@ -29,7 +29,7 @@ const TodoItem = ({
             <BiAlarm /> {moment(todo.time).format("YYYY-MM-DD HH:mm")}
           </p>
         </div>
-        <div className="flex items-center justify-center gap-1 w-[20%]">
+        <div className="flex items-center justify-center gap-1 w-[22%]">
           <div className="flex items-center text-xl cursor-pointer">
             <MdDelete onClick={() => openDeletedModal(todo.id)} />
             <MdEdit onClick={() => updateDataInTodoInput(todo)} />
