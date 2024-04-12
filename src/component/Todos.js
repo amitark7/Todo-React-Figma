@@ -8,8 +8,10 @@ import DeleteModal from "./DeleteModal";
 
 const Todos = () => {
   const [todoList, setTodoList] = useState([]);
-  const [isModal, setIsModal] = useState(false);
-  const [isDeleteModal, setIsDeleteModal] = useState(false);
+  const [showModal, setShowModal] = useState({
+    addUpdateModal: false,
+    deletedModal: false,
+  });
   const [error, setError] = useState(false);
   const [isInvallid, setIsinValid] = useState(false);
   const [selectedTodoId, setSelectedTodoId] = useState(null);
@@ -38,31 +40,45 @@ const Todos = () => {
   };
 
   const openTodoPopupModal = () => {
-    setIsModal(true);
+    setShowModal({ addUpdateModal: true, deletedModal: false });
   };
 
   const closeTodoPopupModal = () => {
-    setIsModal(false);
+    setShowModal({ addUpdateModal: false, deletedModal: false });
     setSelectedTodoId(null);
     setTodoInput({
       todoTitle: "",
       time: currentTimeAndDate,
     });
     setIsinValid(false);
+    setError(false);
   };
 
   //This function saveUpdateAndAddTodo
   const saveUpdateAndAddTodo = () => {
+    if (
+      todoInput.todoTitle.trim() === "" &&
+      (moment(todoInput.time).isValid() ||
+        !moment(todoInput.time).isBefore(moment()))
+    ) {
+      setIsinValid(false);
+    }
+
     if (todoInput.todoTitle.trim() === "") {
       setError(true);
       return;
+    } else {
+      setError(false);
     }
+
     if (
       !moment(todoInput.time).isValid() ||
       moment(todoInput.time).isBefore(moment())
     ) {
       setIsinValid(true);
       return;
+    } else {
+      setIsinValid(false);
     }
 
     //If selectedTodoId exist then we ente in true block and perform update operation otherwise add todo
@@ -95,19 +111,19 @@ const Todos = () => {
       todoTitle: "",
       time: currentTimeAndDate,
     });
-    setIsModal(false);
+    setShowModal({ addUpdateModal: false, deletedModal: false });
     setError(false);
     setIsinValid(false);
   };
 
   const deleteTodo = (id) => {
     setTodoList(todoList.filter((todo) => todo.id !== id));
-    setIsDeleteModal(false);
+    setShowModal({ addUpdateModal: false, deletedModal: false });
     setSelectedTodoId(false);
   };
 
   const openDeletedModal = (id) => {
-    setIsDeleteModal(true);
+    setShowModal({ addUpdateModal: false, deletedModal: true });
     setSelectedTodoId(id);
   };
 
@@ -115,7 +131,7 @@ const Todos = () => {
   const updateDataInTodoInput = (todo) => {
     setTodoInput({ todoTitle: todo.title, time: todo.time });
     setSelectedTodoId(todo.id);
-    setIsModal(true);
+    setShowModal({ addUpdateModal: true, deletedModal: false });
   };
 
   //We use seInterval in useEffect for update currentTimeAndDate in every seconds. currenTimeAndDate used in time in todoInput.
@@ -153,7 +169,7 @@ const Todos = () => {
       })}
 
       <PopUp
-        isModal={isModal}
+        showModal={showModal}
         selectedTodoId={selectedTodoId}
         todoInput={todoInput}
         changeTodoInputValue={changeTodoInputValue}
@@ -163,8 +179,8 @@ const Todos = () => {
         isInvallid={isInvallid}
       />
       <DeleteModal
-        isDeleteModal={isDeleteModal}
-        setIsDeleteModal={setIsDeleteModal}
+        showModal={showModal}
+        setShowModal={setShowModal}
         deleteTodo={deleteTodo}
         selectedTodoId={selectedTodoId}
         setSelectedTodoId={setSelectedTodoId}

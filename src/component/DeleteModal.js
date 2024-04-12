@@ -1,18 +1,18 @@
 import React from "react";
 
 const DeleteModal = ({
-  isDeleteModal,
-  setIsDeleteModal,
+  showModal,
+  setShowModal,
   deleteTodo,
   selectedTodoId,
   setSelectedTodoId,
 }) => {
   const closeDeleteModal = () => {
-    setIsDeleteModal(false);
+    setShowModal({ addUpdateModal: false, deletedModal: false });
     setSelectedTodoId(null);
   };
   return (
-    isDeleteModal && (
+    showModal.deletedModal && (
       <div className="absolute text-center mx-auto w-[80%] top-[30%] left-[10%] bg-white border-2 px-2 py-4 rounded">
         <p className="text-2xl text-left w-[80%] mx-auto mb-6">Delete</p>
         <p className="text-base text-left w-[80%] mx-auto mb-6">
