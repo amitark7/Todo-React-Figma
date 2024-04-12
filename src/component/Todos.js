@@ -60,6 +60,14 @@ const Todos = () => {
       setIsinValid(true);
       return;
     }
+    if (
+      !moment(todoInput.time).isValid() ||
+      moment(todoInput.time).isBefore(moment())
+    ) {
+      setIsinValid(true);
+      return;
+    }
+
     //If selectedTodoId exist then we ente in true block and perform update operation otherwise add todo
     if (selectedTodoId) {
       setTodoList(
