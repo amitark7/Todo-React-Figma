@@ -1,7 +1,7 @@
 import moment from "moment";
 import React from "react";
 
-const PopUp = ({
+const PopUpModal = ({
   showModal,
   selectedTodoId,
   todoInputValue,
@@ -47,4 +47,4 @@ const PopUp = ({
   );
 };
 
-export default PopUp;
+export default PopUpModal;

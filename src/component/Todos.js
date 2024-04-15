@@ -3,7 +3,7 @@ import Navbar from "./Navbar";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import TodoItem from "./TodoItem";
 import moment from "moment";
-import PopUp from "./PopUp";
+import PopUpModal from "./PopUpModal";
 import DeleteModal from "./DeleteModal";
 
 const Todos = () => {
@@ -168,7 +168,7 @@ const Todos = () => {
         );
       })}
 
-      <PopUp
+      <PopUpModal
         showModal={showModal}
         selectedTodoId={selectedTodoId}
         todoInputValue={todoInputValue}
