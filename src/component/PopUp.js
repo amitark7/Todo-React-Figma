@@ -4,10 +4,10 @@ import React from "react";
 const PopUp = ({
   showModal,
   selectedTodoId,
-  todoInput,
+  todoInputValue,
   changeTodoInputValue,
   closeTodoPopupModal,
-  createAddOrUpdateTodo,
+  createOrUpdateTodo,
   error,
   isDateValid,
 }) => {
@@ -21,7 +21,7 @@ const PopUp = ({
         <textarea
           name="todoTitle"
           id="todoTitle"
-          value={todoInput.todoTitle}
+          value={todoInputValue.todoTitle}
           onChange={changeTodoInputValue}
           className={`w-full h-32 resize-none p-2 rounded border-2 outline-none ${
             error ? "border-red-500" : "border-gray-200"
@@ -31,7 +31,7 @@ const PopUp = ({
           type="datetime-local"
           name="time"
           id="time"
-          value={todoInput.time}
+          value={todoInputValue.time}
           min={dateTimePickerMinValue}
           onChange={changeTodoInputValue}
           className={`w-full rounded p-2 border-2  ${
@@ -40,7 +40,7 @@ const PopUp = ({
         />
         <div className="w-full flex justify-between text-lg font-semibold text-blue-500 mt-3 px-4 2xl:mt-4">
           <button onClick={closeTodoPopupModal}>Cancel</button>
-          <button onClick={createAddOrUpdateTodo}>Done</button>
+          <button onClick={createOrUpdateTodo}>Done</button>
         </div>
       </div>
     )

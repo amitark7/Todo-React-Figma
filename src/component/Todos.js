@@ -18,9 +18,9 @@ const Todos = () => {
   const [currentTimeAndDate, setCurrentTimeAndDate] = useState(
     moment().format("YYYY-MM-DDTHH:mm")
   );
-  const [todoInput, setTodoInput] = useState({
+  const [todoInputValue, setTodoInputValue] = useState({
     todoTitle: "",
-    time: currentTimeAndDate,
+    time: moment().format("YYYY-MM-DDTHH:mm"),
   });
   //this function check for todo complete or not.
   const isTodoComplete = (id) => {
@@ -36,7 +36,7 @@ const Todos = () => {
   };
 
   const changeTodoInputValue = (e) => {
-    setTodoInput({ ...todoInput, [e.target.name]: e.target.value });
+    setTodoInputValue({ ...todoInputValue, [e.target.name]: e.target.value });
   };
 
   const openTodoPopupModal = () => {
@@ -46,25 +46,25 @@ const Todos = () => {
   const closeTodoPopupModal = () => {
     setShowModal({ addUpdateModal: false, deletedModal: false });
     setSelectedTodoId(null);
-    setTodoInput({
+    setTodoInputValue({
       todoTitle: "",
-      time: currentTimeAndDate,
+      time: moment().format("YYYY-MM-DDTHH:mm"),
     });
     setIsDateValid(false);
     setError(false);
   };
 
-  //This function createAddOrUpdateTodo
-  const createAddOrUpdateTodo = () => {
+  //This function createOrUpdateTodo
+  const createOrUpdateTodo = () => {
     if (
-      todoInput.todoTitle.trim() === "" &&
-      (moment(todoInput.time).isValid() ||
-        !moment(todoInput.time).isBefore(moment()))
+      todoInputValue.todoTitle.trim() === "" &&
+      (moment(todoInputValue.time).isValid() ||
+        !moment(todoInputValue.time).isBefore(moment()))
     ) {
       setIsDateValid(false);
     }
 
-    if (todoInput.todoTitle.trim() === "") {
+    if (todoInputValue.todoTitle.trim() === "") {
       setError(true);
       return;
     } else {
@@ -72,8 +72,8 @@ const Todos = () => {
     }
 
     if (
-      !moment(todoInput.time).isValid() ||
-      moment(todoInput.time).isBefore(moment())
+      !moment(todoInputValue.time).isValid() ||
+      moment(todoInputValue.time).isBefore(moment())
     ) {
       setIsDateValid(true);
       return;
@@ -81,15 +81,15 @@ const Todos = () => {
       setIsDateValid(false);
     }
 
-    //If selectedTodoId exist then we ente in true block and perform update operation otherwise add todo
+    //If selectedTodoId exist then we enter in true block and perform update operation otherwise add todo
     if (selectedTodoId) {
       setTodoList(
         todoList.map((todo) => {
           if (todo.id === selectedTodoId) {
             return {
               ...todo,
-              title: todoInput.todoTitle,
-              time: todoInput.time,
+              title: todoInputValue.todoTitle,
+              time: todoInputValue.time,
             };
           } else {
             return todo;
@@ -100,16 +100,16 @@ const Todos = () => {
     } else {
       const newTodo = {
         id: Date.now(),
-        title: todoInput.todoTitle,
-        time: todoInput.time,
+        title: todoInputValue.todoTitle,
+        time: todoInputValue.time,
         isComplete: false,
         color: "purple",
       };
       setTodoList([...todoList, newTodo]);
     }
-    setTodoInput({
+    setTodoInputValue({
       todoTitle: "",
-      time: currentTimeAndDate,
+      time: moment().format("YYYY-MM-DDTHH:mm"),
     });
     setShowModal({ addUpdateModal: false, deletedModal: false });
     setError(false);
@@ -127,14 +127,14 @@ const Todos = () => {
     setSelectedTodoId(id);
   };
 
-  //this function set TodoInputValue base on id
-  const updateDataInTodoInput = (todo) => {
-    setTodoInput({ todoTitle: todo.title, time: todo.time });
+  //this function set todoInputValue base on id
+  const updateDataInTodoInputValue = (todo) => {
+    setTodoInputValue({ todoTitle: todo.title, time: todo.time });
     setSelectedTodoId(todo.id);
     setShowModal({ addUpdateModal: true, deletedModal: false });
   };
 
-  //We use seInterval in useEffect for update currentTimeAndDate in every seconds. currenTimeAndDate used in time in todoInput.
+  //We use seInterval in useEffect for update currentTimeAndDate in every seconds. currenTimeAndDate used for update navbar time.
   useEffect(() => {
     setInterval(() => {
       setCurrentTimeAndDate(moment().format("YYYY-MM-DDTHH:mm"));
@@ -143,7 +143,7 @@ const Todos = () => {
 
   return (
     <div className="w-full mx-auto relative pb-10 border-2 shadow-md sm:w-3/5 md:w-2/4 lg:w-2/5 2xl:w-2/6">
-      <Navbar />
+      <Navbar currentTimeAndDate={currentTimeAndDate} />
       <div className="flex justify-between items-center px-3 mt-2 mb-6">
         <h1 className="text-3xl font-bold">Today</h1>
         <div
@@ -162,7 +162,7 @@ const Todos = () => {
             key={index}
             todo={todo}
             openDeletedModal={openDeletedModal}
-            updateDataInTodoInput={updateDataInTodoInput}
+            updateDataInTodoInputValue={updateDataInTodoInputValue}
             isTodoComplete={isTodoComplete}
           />
         );
@@ -171,10 +171,10 @@ const Todos = () => {
       <PopUp
         showModal={showModal}
         selectedTodoId={selectedTodoId}
-        todoInput={todoInput}
+        todoInputValue={todoInputValue}
         changeTodoInputValue={changeTodoInputValue}
         closeTodoPopupModal={closeTodoPopupModal}
-        createAddOrUpdateTodo={createAddOrUpdateTodo}
+        createOrUpdateTodo={createOrUpdateTodo}
         error={error}
         isDateValid={isDateValid}
       />
